@@ -1,6 +1,6 @@
 🚀 CollabLink – Hackathon Team Finder (Frontend Prototype)
 
-🌐 Live Demo
+🌐 https://collablink.vercel.app/
 
 CollabLink is a frontend prototype built to help hackathon participants and project enthusiasts find and connect with team members.
 Developed using Next.js and Tailwind CSS, it delivers a clean, interactive, and responsive UI tailored for hackathon environments. 🎨✨
