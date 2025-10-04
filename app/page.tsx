@@ -1,6 +1,6 @@
 'use client';
 
-import Header from '@/components/layout/Header';
+import Header from '@/components/Header';
 import Link from 'next/link';
 import { useState } from 'react';
 import { Search, Filter, MessageCircle, Save, Users, MapPin, DollarSign, Calendar, User, MessageSquare, Plus, Eye, ArrowRight, Rocket, Zap, X, Trophy, Clock, Briefcase } from 'lucide-react';
