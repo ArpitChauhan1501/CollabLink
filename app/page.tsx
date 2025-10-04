@@ -1,9 +1,9 @@
 'use client';
 
-import Header from '@/components/Header';
+import Header from '@/components/layout/Header';
 import Link from 'next/link';
 import { useState } from 'react';
-import { Search, Filter, MessageCircle, Save, Users, MapPin, DollarSign, Calendar, User, MessageSquare, Plus, Eye, ArrowRight, Rocket, Zap, X, Trophy, Clock, Briefcase } from 'lucide-react';
+import { Search, Filter, MessageCircle, Save, Users, MapPin, DollarSign, Calendar, MessageSquare, Plus, Eye, ArrowRight, Rocket, Zap, X, Trophy, Clock, Briefcase, Menu, User as UserIcon } from 'lucide-react';
 
 type Hackathon = {
   id: number;
@@ -20,6 +20,7 @@ type Hackathon = {
 
 export default function Home() {
   const [selectedHackathon, setSelectedHackathon] = useState<Hackathon | null>(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const hackathons: Hackathon[] = [
     {
@@ -115,31 +116,75 @@ export default function Home() {
   ];
 
   const closeModal = () => setSelectedHackathon(null);
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-[#FFFBF5] via-[#FFF8F0] to-[#F0F8FF]">
-      {/* Header matching the uploaded image with better animated logo */}
-      <header className="bg-white/80 backdrop-blur-sm border-b border-[#2D3648]/20 px-4 py-4">
-        <div className="max-w-6xl mx-auto flex justify-between items-center">
+      {/* Mobile Sidebar Menu */}
+      <div className={`fixed inset-0 z-50 transform transition-transform duration-300 ease-in-out ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'} lg:hidden bg-white shadow-lg`}>
+        <div className="flex items-center justify-between p-4 border-b border-gray-200">
           <div className="flex items-center space-x-2">
             <div className="logo-container relative">
               <div className="logo-circle w-10 h-10 bg-gradient-to-br from-pink-400 to-pink-500 rounded-full flex items-center justify-center shadow-lg border-2 border-white/50">
-                <User className="w-5 h-5 text-white drop-shadow-sm" />
+                <UserIcon className="w-5 h-5 text-white drop-shadow-sm" />
               </div>
               <div className="logo-dot absolute -top-1 -right-1 w-3 h-3 bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-full shadow-md"></div>
             </div>
             <span className="text-xl font-bold text-[#2D3648]">CollabLink</span>
           </div>
-          <nav className="flex items-center space-x-4">
+          <button onClick={toggleMenu} className="p-1 text-[#2D3648] hover:text-[#FF9A62] transition-colors">
+            <X className="w-6 h-6" />
+          </button>
+        </div>
+        <nav className="flex flex-col space-y-4 p-4">
+          <Link href="/" className="px-4 py-2 bg-orange-400 text-white rounded-full text-sm font-semibold hover:bg-orange-500 transition-colors">Home</Link>
+          <Link href="/explore" className="px-4 py-2 text-[#2D3648] hover:text-[#FF9A62] font-semibold transition-colors">Explore Teams</Link>
+          <Link href="/create" className="px-4 py-2 text-[#2D3648] hover:text-[#FF9A62] font-semibold transition-colors">Create Project</Link>
+          <Link href="/my-teams" className="px-4 py-2 text-[#2D3648] hover:text-[#FF9A62] font-semibold transition-colors">My Teams</Link>
+          <Link href="/signin" className="px-4 py-2 text-[#2D3648] hover:text-[#FF9A62] font-semibold transition-colors">Sign In</Link>
+          <Link href="/login" className="doodle-button bg-white text-[#2D3648] text-sm px-4 py-2">Login</Link>
+        </nav>
+      </div>
+
+      {/* Overlay for mobile menu */}
+      {isMenuOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 lg:hidden"
+          onClick={toggleMenu}
+        />
+      )}
+
+      {/* Header */}
+      <header className="bg-white/80 backdrop-blur-sm border-b border-[#2D3648]/20 px-4 py-4">
+        <div className="max-w-6xl mx-auto flex justify-between items-center">
+          <div className="flex items-center space-x-2">
+            <div className="logo-container relative">
+              <div className="logo-circle w-10 h-10 bg-gradient-to-br from-pink-400 to-pink-500 rounded-full flex items-center justify-center shadow-lg border-2 border-white/50">
+                <UserIcon className="w-5 h-5 text-white drop-shadow-sm" />
+              </div>
+              <div className="logo-dot absolute -top-1 -right-1 w-3 h-3 bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-full shadow-md"></div>
+            </div>
+            <span className="text-xl font-bold text-[#2D3648]">CollabLink</span>
+          </div>
+          {/* Desktop Nav */}
+          <nav className="hidden lg:flex items-center space-x-4">
             <Link href="/" className="px-4 py-2 bg-orange-400 text-white rounded-full text-sm font-semibold hover:bg-orange-500 transition-colors">Home</Link>
             <Link href="/explore" className="px-4 py-2 text-[#2D3648] hover:text-[#FF9A62] font-semibold transition-colors">Explore Teams</Link>
             <Link href="/create" className="px-4 py-2 text-[#2D3648] hover:text-[#FF9A62] font-semibold transition-colors">Create Project</Link>
             <Link href="/my-teams" className="px-4 py-2 text-[#2D3648] hover:text-[#FF9A62] font-semibold transition-colors">My Teams</Link>
           </nav>
-          <div className="flex items-center space-x-4">
+          {/* Desktop Auth Links */}
+          <div className="hidden lg:flex items-center space-x-4">
             <Link href="/signin" className="px-4 py-2 text-[#2D3648] hover:text-[#FF9A62] font-semibold transition-colors">Sign In</Link>
             <Link href="/login" className="doodle-button bg-white text-[#2D3648] text-sm px-4 py-2">Login</Link>
           </div>
+          {/* Mobile Hamburger */}
+          <button 
+            onClick={toggleMenu} 
+            className="lg:hidden p-1 text-[#2D3648] hover:text-[#FF9A62] transition-colors"
+          >
+            <Menu className="w-6 h-6" />
+          </button>
         </div>
       </header>
 
@@ -175,7 +220,7 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
             <Link
               href="/explore"
-              className="doodle-button bg-gradient-to-r from-[#FF9A62] to-[#FF6B9D] text-white hover:bg-black flex items-center space-x-2 text-lg"
+              className="doodle-button bg-gradient-to-r from-[#FF9A62] to-[#FF6B9D] text-white hover:from-[#FF8A52] hover:to-[#FF5B8D] flex items-center space-x-2 text-lg"
             >
               <span>Start Exploring Teams</span>
               <ArrowRight className="w-5 h-5" />
@@ -207,22 +252,22 @@ export default function Home() {
       <main className="max-w-6xl mx-auto px-4 py-8">
         {/* Hackathons Section */}
         <section className="mb-12">
-          <div className="flex justify-between items-center mb-6">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
             <h2 className="text-3xl font-bold text-[#2D3648]">Hackathons</h2>
             <div className="flex items-center space-x-2">
               <Filter className="w-5 h-5 text-[#2D3648]" />
               <span className="text-sm text-[#2D3648]/70">Filter</span>
             </div>
           </div>
-          <div className="grid md:grid-cols-3 gap-6 mb-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
             {hackathons.map((hack) => (
               <div 
                 key={hack.id} 
-                className="doodle-card p-10 cursor-pointer hover:bg-blue-50 transition-colors" 
+                className="doodle-card p-6 md:p-10 cursor-pointer hover:bg-blue-50 transition-colors" 
                 onClick={() => setSelectedHackathon(hack)}
               >
                 <div className="flex justify-between items-start mb-2">
-                  <h3 className="font-bold text-[#2D3648] text-xl">{hack.name}</h3>
+                  <h3 className="font-bold text-[#2D3648] text-lg md:text-xl">{hack.name}</h3>
                   <Save className="w-5 h-5 text-[#FF9A62]" />
                 </div>
                 <div className="space-y-3 text-sm text-[#2D3648]/70 mb-4">
@@ -255,21 +300,21 @@ export default function Home() {
 
         {/* Participants Section */}
         <section className="mb-12">
-          <div className="flex justify-between items-center mb-6">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
             <h2 className="text-3xl font-bold text-[#2D3648]">Participants</h2>
             <div className="flex items-center space-x-4">
               <div className="relative">
-                <input type="text" placeholder="Search Profile" className="doodle-input w-48 bg-white/50 text-sm" />
+                <input type="text" placeholder="Search Profile" className="doodle-input w-full sm:w-48 bg-white/50 text-sm" />
               </div>
               <Filter className="w-5 h-5 text-[#2D3648]" />
             </div>
           </div>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {participants.map((participant) => (
-              <div key={participant.id} className="doodle-card p-8">
+              <div key={participant.id} className="doodle-card p-6 md:p-8">
                 <div className="flex items-center space-x-3 mb-3">
                   <div className="w-10 h-10 bg-gradient-to-br from-[#FF9A62] to-[#FF6B9D] rounded-full flex items-center justify-center">
-                    <User className="w-5 h-5 text-white" />
+                    <UserIcon className="w-5 h-5 text-white" />
                   </div>
                   <div className="flex-1">
                     <h3 className="font-bold text-[#2D3648] text-lg">{participant.name}</h3>
@@ -293,7 +338,7 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
-                <div className="flex space-x-1 mb-3">
+                <div className="flex flex-wrap space-x-1 mb-3">
                   {participant.skills.map((skill, idx) => (
                     <span key={idx} className="px-2 py-1 bg-[#FFD93D]/20 text-xs rounded-full text-[#2D3648]">
                       {skill}
@@ -310,7 +355,7 @@ export default function Home() {
                 </div>
               </div>
             ))}
-            <div className="doodle-card p-8 flex items-center justify-center col-span-1 md:col-span-1">
+            <div className="doodle-card p-6 md:p-8 flex items-center justify-center col-span-1">
               <Link href="/participants" className="text-[#FF9A62] font-bold flex items-center">
                 View more <ArrowRight className="w-4 h-4 ml-1" />
               </Link>
@@ -320,25 +365,25 @@ export default function Home() {
 
         {/* Projects Section */}
         <section className="mb-12">
-          <div className="flex justify-between items-center mb-6">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
             <h2 className="text-3xl font-bold text-[#2D3648]">Projects</h2>
             <div className="flex items-center space-x-4">
               <div className="relative">
-                <input type="text" placeholder="Search Project" className="doodle-input w-48 bg-white/50 text-sm" />
+                <input type="text" placeholder="Search Project" className="doodle-input w-full sm:w-48 bg-white/50 text-sm" />
               </div>
               <Filter className="w-5 h-5 text-[#2D3648]" />
               <Plus className="w-5 h-5 text-[#FF9A62] cursor-pointer" />
             </div>
           </div>
-          <div className="grid md:grid-cols-3 gap-6 mb-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
             {projects.map((project) => (
-              <div key={project.id} className="doodle-card p-10">
+              <div key={project.id} className="doodle-card p-6 md:p-10">
                 <div className="flex justify-between items-start mb-2">
                   <h3 className="font-bold text-[#2D3648] text-lg">{project.name}</h3>
                   <Save className="w-5 h-5 text-[#FF9A62]" />
                 </div>
                 <p className="text-sm text-[#2D3648]/70 mb-2">{project.type}</p>
-                <div className="flex space-x-1 mb-2">
+                <div className="flex flex-wrap space-x-1 mb-2">
                   {project.tags.map((tag, idx) => (
                     <span key={idx} className="px-2 py-1 bg-[#6DD5ED]/20 text-sm rounded-full text-[#2D3648]">
                       {tag}
@@ -362,7 +407,7 @@ export default function Home() {
 
         {/* Chatbot Section at the end */}
         <section className="mb-12">
-          <div className="doodle-card p-8 max-w-2xl mx-auto">
+          <div className="doodle-card p-6 md:p-8 max-w-2xl mx-auto">
             <div className="flex justify-between items-start mb-4">
               <h3 className="font-bold text-[#2D3648] text-xl">Chatbot for Hackathons Related Doubts</h3>
               <Save className="w-5 h-5 text-[#FF9A62]" />
@@ -381,13 +426,13 @@ export default function Home() {
       {/* Hackathon Modal */}
       {selectedHackathon && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-white/95 backdrop-blur-lg rounded-3xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto relative">
+          <div className="bg-white/95 backdrop-blur-lg rounded-3xl p-4 md:p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto relative">
             <button onClick={closeModal} className="absolute top-4 right-4 text-[#2D3648] hover:text-[#FF9A62] transition-colors">
               <X className="w-6 h-6" />
             </button>
             <h2 className="text-3xl font-bold text-[#2D3648] mb-4">{selectedHackathon.name}</h2>
             <p className="text-lg text-[#2D3648]/80 mb-6">{selectedHackathon.description}</p>
-            <div className="grid md:grid-cols-2 gap-4 text-sm mb-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm mb-6">
               <div>
                 <div className="flex items-center mb-2">
                   <Users className="w-4 h-4 mr-2 text-[#FF9A62]" />
