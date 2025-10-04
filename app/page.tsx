@@ -3,7 +3,7 @@
 import Header from '@/components/Header';
 import Link from 'next/link';
 import { useState } from 'react';
-import { Search, Filter, MessageCircle, Save, Users, MapPin, DollarSign, Calendar, User, MessageSquare, Plus, Eye, ArrowRight, Rocket, Zap, X, Trophy, Clock, Briefcase } from 'lucide-react';
+import { Search, Filter, MessageCircle, Save, Users, MapPin, DollarSign, Calendar, User, MessageSquare, Plus, Eye, ArrowRight, Rocket, Zap, X, Trophy, Clock, Briefcase, Menu } from 'lucide-react';
 
 type Hackathon = {
   id: number;
@@ -20,6 +20,7 @@ type Hackathon = {
 
 export default function Home() {
   const [selectedHackathon, setSelectedHackathon] = useState<Hackathon | null>(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const hackathons: Hackathon[] = [
     {
@@ -161,13 +162,13 @@ export default function Home() {
             </div>
           </div>
 
-          <h1 className="text-5xl md:text-6xl font-bold text-[#2D3648] mb-6 leading-tight">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-[#2D3648] mb-6 leading-tight">
             Find Your Perfect
             <br />
             <span className="squiggle-underline inline-block">Hackathon Team</span>
           </h1>
 
-          <p className="text-xl text-[#2D3648]/70 mb-10 max-w-2xl mx-auto font-semibold leading-relaxed">
+          <p className="text-lg sm:text-xl text-[#2D3648]/70 mb-10 max-w-2xl mx-auto font-semibold leading-relaxed">
             Connect with talented developers, designers, and innovators. Build amazing projects together at hackathons worldwide.
           </p>
 
@@ -264,7 +265,7 @@ export default function Home() {
               <Filter className="w-5 h-5 text-[#2D3648]" />
             </div>
           </div>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {participants.map((participant) => (
               <div key={participant.id} className="doodle-card p-8">
                 <div className="flex items-center space-x-3 mb-3">

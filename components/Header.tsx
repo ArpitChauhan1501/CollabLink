@@ -38,51 +38,37 @@ export default function Header() {
             </span>
           </Link>
 
-          <nav className="hidden md:flex items-center space-x-1">
+          <nav className="hidden md:flex items-center space-x-2">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`px-5 py-2 rounded-full font-semibold transition-all duration-300 ${
-                  pathname === link.href
-                    ? 'bg-[#FF9A62] text-white border-[3px] border-[#2D3648] shadow-md'
-                    : 'text-[#2D3648] hover:bg-[#FFD93D]/30'
-                }`}
-              >
+                className={`px-4 py-2 rounded-full font-semibold transition-all duration-300 text-sm ${pathname === link.href ? 'bg-[#FF9A62] text-white' : 'text-[#2D3648] hover:bg-[#FFD93D]/30'}`}>
                 {link.label}
               </Link>
             ))}
-          </nav>
-
-          <div className="hidden md:flex items-center space-x-4">
-            {user && (
+            {user ? (
               <div className="relative group">
-                <button className="flex items-center space-x-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#6DD5ED] to-[#2193B0] text-white font-semibold border-[3px] border-[#2D3648] shadow-md hover:shadow-lg transition-all duration-300">
-                  <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center border-2 border-[#2D3648]">
-                    <span className="text-[#2D3648] font-bold text-sm">
+                <button className="flex items-center space-x-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-[#6DD5ED] to-[#2193B0] text-white font-semibold border-2 border-[#2D3648] shadow-sm">
+                  <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center">
+                    <span className="text-[#2D3648] font-bold text-xs">
                       {user.username.charAt(0).toUpperCase()}
                     </span>
                   </div>
-                  <span className="max-w-[100px] truncate">{user.username}</span>
+                  <span className="text-sm max-w-[80px] truncate">{user.username}</span>
                 </button>
-
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-2xl border-[3px] border-[#2D3648] shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
-                  <Link
-                    href="/profile"
-                    className="block px-4 py-3 text-[#2D3648] hover:bg-[#FFD93D]/20 rounded-t-xl transition-colors font-semibold"
-                  >
-                    Profile
-                  </Link>
-                  <button
-                    onClick={logout}
-                    className="w-full text-left px-4 py-3 text-[#2D3648] hover:bg-[#FF9A62]/20 rounded-b-xl transition-colors font-semibold"
-                  >
-                    Logout
-                  </button>
+                <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl border-2 border-[#2D3648] shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-10">
+                  <Link href="/profile" className="block px-4 py-2 text-[#2D3648] hover:bg-[#FFD93D]/20 rounded-t-lg font-semibold">Profile</Link>
+                  <button onClick={logout} className="w-full text-left px-4 py-2 text-[#2D3648] hover:bg-[#FF9A62]/20 rounded-b-lg font-semibold">Logout</button>
                 </div>
               </div>
+            ) : (
+              <div className="flex items-center space-x-2">
+                <Link href="/signin" className="px-4 py-2 rounded-full font-semibold text-[#2D3648] hover:bg-[#FFD93D]/30 text-sm">Sign In</Link>
+                <Link href="/login" className="px-4 py-2 rounded-full font-semibold bg-[#FF9A62] text-white border-2 border-[#2D3648] text-sm">Login</Link>
+              </div>
             )}
-          </div>
+          </nav>
 
           <button
             className="md:hidden p-2 text-[#2D3648]"
@@ -92,44 +78,40 @@ export default function Header() {
           </button>
         </div>
 
-        {mobileMenuOpen && (
-          <div className="md:hidden pb-4 space-y-2">
+        <div className={`md:hidden ${mobileMenuOpen ? 'block' : 'hidden'}`}>
+          <div className="pt-2 pb-3 space-y-1">
             {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className={`block px-4 py-3 rounded-2xl font-semibold transition-all ${
-                  pathname === link.href
-                    ? 'bg-[#FF9A62] text-white border-[3px] border-[#2D3648]'
-                    : 'text-[#2D3648] hover:bg-[#FFD93D]/30'
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
-            {user && (
-              <>
-                <Link
-                  href="/profile"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block px-4 py-3 rounded-2xl text-[#2D3648] hover:bg-[#6DD5ED]/20 font-semibold"
-                >
-                  Profile
+                <Link key={link.href} href={link.href} onClick={() => setMobileMenuOpen(false)} className={`block pl-3 pr-4 py-2 border-l-4 text-base font-medium ${pathname === link.href ? 'bg-[#FF9A62]/10 border-[#FF9A62] text-[#2D3648]' : 'border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700'}`}>
+                  {link.label}
                 </Link>
-                <button
-                  onClick={() => {
-                    logout();
-                    setMobileMenuOpen(false);
-                  }}
-                  className="w-full text-left px-4 py-3 rounded-2xl text-[#2D3648] hover:bg-[#FF9A62]/20 font-semibold"
-                >
-                  Logout
-                </button>
-              </>
+            ))}
+          </div>
+          <div className="pt-4 pb-3 border-t border-gray-200">
+            {user ? (
+                <div className="flex items-center px-4">
+                  <div className="flex-shrink-0">
+                    <div className="w-10 h-10 bg-gradient-to-r from-[#6DD5ED] to-[#2193B0] rounded-full flex items-center justify-center border-2 border-[#2D3648]">
+                        <span className="text-white font-bold">
+                          {user.username.charAt(0).toUpperCase()}
+                        </span>
+                    </div>
+                  </div>
+                  <div className="ml-3">
+                    <div className="text-base font-medium text-gray-800">{user.username}</div>
+                  </div>
+                </div>
+                <div className="mt-3 space-y-1">
+                  <Link href="/profile" onClick={() => setMobileMenuOpen(false)} className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100">Profile</Link>
+                  <button onClick={() => { logout(); setMobileMenuOpen(false); }} className="block w-full text-left px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100">Logout</button>
+                </div>
+            ) : (
+                <div className="space-y-1">
+                  <Link href="/signin" onClick={() => setMobileMenuOpen(false)} className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100">Sign In</Link>
+                  <Link href="/login" onClick={() => setMobileMenuOpen(false)} className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100">Login</Link>
+                </div>
             )}
           </div>
-        )}
+        </div>
       </div>
     </header>
   );
