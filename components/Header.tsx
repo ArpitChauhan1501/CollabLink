@@ -43,7 +43,8 @@ export default function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`px-4 py-2 rounded-full font-semibold transition-all duration-300 text-sm ${pathname === link.href ? 'bg-[#FF9A62] text-white' : 'text-[#2D3648] hover:bg-[#FFD93D]/30'}`}>
+                className={`px-4 py-2 rounded-full font-semibold transition-all duration-300 text-sm ${pathname === link.href ? 'bg-[#FF9A62] text-white' : 'text-[#2D3648] hover:bg-[#FFD93D]/30'}`}
+              >
                 {link.label}
               </Link>
             ))}
@@ -81,19 +82,20 @@ export default function Header() {
         <div className={`md:hidden ${mobileMenuOpen ? 'block' : 'hidden'}`}>
           <div className="pt-2 pb-3 space-y-1">
             {navLinks.map((link) => (
-                <Link key={link.href} href={link.href} onClick={() => setMobileMenuOpen(false)} className={`block pl-3 pr-4 py-2 border-l-4 text-base font-medium ${pathname === link.href ? 'bg-[#FF9A62]/10 border-[#FF9A62] text-[#2D3648]' : 'border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700'}`}>
-                  {link.label}
-                </Link>
+              <Link key={link.href} href={link.href} onClick={() => setMobileMenuOpen(false)} className={`block pl-3 pr-4 py-2 border-l-4 text-base font-medium ${pathname === link.href ? 'bg-[#FF9A62]/10 border-[#FF9A62] text-[#2D3648]' : 'border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700'}`}>
+                {link.label}
+              </Link>
             ))}
           </div>
           <div className="pt-4 pb-3 border-t border-gray-200">
             {user ? (
+              <>
                 <div className="flex items-center px-4">
                   <div className="flex-shrink-0">
                     <div className="w-10 h-10 bg-gradient-to-r from-[#6DD5ED] to-[#2193B0] rounded-full flex items-center justify-center border-2 border-[#2D3648]">
-                        <span className="text-white font-bold">
-                          {user.username.charAt(0).toUpperCase()}
-                        </span>
+                      <span className="text-white font-bold">
+                        {user.username.charAt(0).toUpperCase()}
+                      </span>
                     </div>
                   </div>
                   <div className="ml-3">
@@ -104,11 +106,12 @@ export default function Header() {
                   <Link href="/profile" onClick={() => setMobileMenuOpen(false)} className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100">Profile</Link>
                   <button onClick={() => { logout(); setMobileMenuOpen(false); }} className="block w-full text-left px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100">Logout</button>
                 </div>
+              </>
             ) : (
-                <div className="space-y-1">
-                  <Link href="/signin" onClick={() => setMobileMenuOpen(false)} className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100">Sign In</Link>
-                  <Link href="/login" onClick={() => setMobileMenuOpen(false)} className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100">Login</Link>
-                </div>
+              <div className="space-y-1">
+                <Link href="/signin" onClick={() => setMobileMenuOpen(false)} className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100">Sign In</Link>
+                <Link href="/login" onClick={() => setMobileMenuOpen(false)} className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100">Login</Link>
+              </div>
             )}
           </div>
         </div>
