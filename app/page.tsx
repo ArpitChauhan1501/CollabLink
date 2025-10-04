@@ -175,7 +175,7 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
             <Link
               href="/explore"
-              className="doodle-button bg-gradient-to-r from-[#FF9A62] to-[#FF6B9D] text-white hover:from-[#FF8A52] hover:to-[#FF5B8D] flex items-center space-x-2 text-lg"
+              className="doodle-button bg-gradient-to-r from-[#FF9A62] to-[#FF6B9D] text-white hover:bg-black flex items-center space-x-2 text-lg"
             >
               <span>Start Exploring Teams</span>
               <ArrowRight className="w-5 h-5" />
