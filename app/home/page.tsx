@@ -6,9 +6,22 @@ import { useAuth } from '@/contexts/AuthContext';
 import ProtectedRoute from '@/components/ProtectedRoute';
 import { Search, Filter, MessageCircle, Save, Users, MapPin, DollarSign, Calendar, User, MessageSquare, Plus, Eye, ArrowRight, X, Trophy, Linkedin, Instagram, Menu, Edit, FilePlus, Rocket, Zap, Clock, Briefcase } from 'lucide-react';
 
+type Hackathon = {
+  id: number;
+  name: string;
+  organizer: string;
+  location: string;
+  price: string;
+  deadline: string;
+  date: string;
+  prizes: string;
+  description: string;
+  themes: string[];
+};
+
 export default function HomePage() {
   const { logout } = useAuth();
-  const [selectedHackathon, setSelectedHackathon] = useState(null);
+  const [selectedHackathon, setSelectedHackathon] = useState<Hackathon | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -102,6 +115,18 @@ export default function HomePage() {
       availability: 'Available evenings and weekends',
       github: 'https://github.com/bobsmith',
       linkedin: 'https://linkedin.com/in/bobsmith',
+    },
+    {
+      id: 3,
+      name: 'Carol Davis',
+      college: 'Harvard University',
+      location: 'Boston, MA',
+      skills: ['JavaScript', 'Python', 'Database'],
+      bio: 'Experienced developer interested in hackathons and team collaborations.',
+      experience: '4 years',
+      availability: 'Available full-time',
+      github: 'https://github.com/caroldavis',
+      linkedin: 'https://linkedin.com/in/caroldavis',
     },
   ];
 
@@ -426,7 +451,7 @@ export default function HomePage() {
               <Filter className="w-5 h-5 text-[#2D3648]" />
             </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
             {participants.map((participant) => (
               <div key={participant.id} className="doodle-card p-6 md:p-8">
                 <div className="flex items-center space-x-3 mb-3">
@@ -472,11 +497,11 @@ export default function HomePage() {
                 </div>
               </div>
             ))}
-            <div className="doodle-card p-6 md:p-8 flex items-center justify-center col-span-1 md:col-span-1">
-              <Link href="/participants" className="text-[#FF9A62] font-bold flex items-center">
-                View more <ArrowRight className="w-4 h-4 ml-1" />
-              </Link>
-            </div>
+          </div>
+          <div className="flex justify-end">
+            <Link href="/participants" className="doodle-button bg-white text-[#2D3648] text-sm px-6 py-2 flex items-center space-x-2">
+              View all <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
         </section>
 
@@ -569,11 +594,12 @@ export default function HomePage() {
                   <Calendar className="w-4 h-4 mr-2 text-[#FF9A62]" />
                   <span className="font-semibold">Event Date:</span> {selectedHackathon.date}
                 </div>
+                {selectedHackathon.themes.map((theme: string, idx: number) => (
+                  <span key={idx} className="px-3 py-1 bg-[#6DD5ED]/20 text-xs rounded-full text-[#2D3648]">
+                    {theme}
+                  </span>
+                ))}
                 <div className="flex items-center mb-2">
-                  <Calendar className="w-4 h-4 mr-2 text-[#FF9A62]" />
-                  <span className="font-semibold">Deadline:</span> {selectedHackathon.deadline}
-                </div>
-                <div className="flex items-center">
                   <Trophy className="w-4 h-4 mr-2 text-[#FF9A62]" />
                   <span className="font-semibold">Prizes:</span> {selectedHackathon.prizes}
                 </div>
