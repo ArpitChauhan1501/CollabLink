@@ -13,10 +13,13 @@ export default function CreatePage() {
     title: '',
     description: '',
     hackathon: '',
+    teamSize: 0,
+    slotsLeft: 0,
     skillsNeeded: [] as string[],
   });
   const [currentSkill, setCurrentSkill] = useState('');
   const [showSuccess, setShowSuccess] = useState(false);
+  const [projectType, setProjectType] = useState<'personal' | 'hackathon'>('personal');
 
   const handleAddSkill = () => {
     if (currentSkill.trim() && !formData.skillsNeeded.includes(currentSkill.trim())) {
@@ -66,7 +69,7 @@ export default function CreatePage() {
           </div>
 
           <h1 className="text-4xl md:text-5xl font-bold text-[#2D3648] mb-4">
-            Create Your <span className="squiggle-underline">Project</span>
+            Create Your <span className="squiggle-underline">Team</span>
           </h1>
           <p className="text-lg text-[#2D3648]/70 font-semibold max-w-2xl mx-auto">
             Start building your dream team for your next hackathon
@@ -75,58 +78,122 @@ export default function CreatePage() {
 
         <div className="doodle-card p-8 rounded-3xl shadow-2xl bg-white">
           <form onSubmit={handleSubmit} className="space-y-8">
+            <div className="space-y-3">
+              <label className="block text-sm font-bold text-[#2D3648] uppercase tracking-wide">
+                Team Type
+              </label>
+              <div className="flex gap-4">
+                <label className="flex items-center space-x-2 cursor-pointer">
+                  <input
+                    type="radio"
+                    value="personal"
+                    checked={projectType === 'personal'}
+                    onChange={() => setProjectType('personal')}
+                    className="hidden"
+                  />
+                  <span className={`px-4 py-2 rounded-full font-bold text-sm ${projectType === 'personal' ? 'bg-gradient-to-r from-[#FF9A62] to-[#FF6B9D] text-white' : 'bg-white text-[#2D3648] border border-[#2D3648]/20'}`}>
+                    Personal Team
+                  </span>
+                </label>
+                <label className="flex items-center space-x-2 cursor-pointer">
+                  <input
+                    type="radio"
+                    value="hackathon"
+                    checked={projectType === 'hackathon'}
+                    onChange={() => setProjectType('hackathon')}
+                    className="hidden"
+                  />
+                  <span className={`px-4 py-2 rounded-full font-bold text-sm ${projectType === 'hackathon' ? 'bg-gradient-to-r from-[#FF9A62] to-[#FF6B9D] text-white' : 'bg-white text-[#2D3648] border border-[#2D3648]/20'}`}>
+                    Hackathon Team
+                  </span>
+                </label>
+              </div>
+            </div>
+
             <div className="space-y-2">
               <label className="block text-sm font-bold text-[#2D3648] uppercase tracking-wide">
-                Project Title
+                Team Name
               </label>
               <input
                 type="text"
                 value={formData.title}
                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                 className="w-full px-5 py-4 rounded-2xl border-[3px] border-[#2D3648] focus:outline-none focus:ring-4 focus:ring-[#FF9A62]/30 transition-all font-semibold text-base"
-                placeholder="e.g., AI-Powered Study Buddy"
+                placeholder="e.g., Code Warriors"
                 required
               />
             </div>
 
             <div className="space-y-2">
               <label className="block text-sm font-bold text-[#2D3648] uppercase tracking-wide">
-                Description
+                Team Description
               </label>
               <textarea
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                 className="w-full px-5 py-4 rounded-2xl border-[3px] border-[#2D3648] focus:outline-none focus:ring-4 focus:ring-[#FF9A62]/30 transition-all font-semibold resize-none text-base"
-                placeholder="Describe your project idea and what you're building..."
+                placeholder="Describe your team and what you're building..."
                 rows={5}
+                required
+              />
+            </div>
+
+            {projectType === 'hackathon' && (
+              <div className="space-y-3">
+                <label className="block text-sm font-bold text-[#2D3648] uppercase tracking-wide">
+                  Hackathon Name
+                </label>
+                <input
+                  type="text"
+                  value={formData.hackathon}
+                  onChange={(e) => setFormData({ ...formData, hackathon: e.target.value })}
+                  className="w-full px-5 py-4 rounded-2xl border-[3px] border-[#2D3648] focus:outline-none focus:ring-4 focus:ring-[#FF9A62]/30 transition-all font-semibold text-base"
+                  placeholder="e.g., HackTheNorth 2025"
+                  required
+                />
+                <div className="flex flex-wrap gap-3 justify-start">
+                  {popularHackathons.map((hackathon: string) => (
+                    <button
+                      key={hackathon}
+                      type="button"
+                      onClick={() => setFormData({ ...formData, hackathon: hackathon })}
+                      className="px-5 py-3 bg-[#6DD5ED]/20 hover:bg-[#6DD5ED]/30 text-[#2D3648] rounded-full text-sm font-bold border-2 border-[#2D3648]/20 transition-all flex-shrink-0"
+                    >
+                      {hackathon}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            <div className="space-y-3">
+              <label className="block text-sm font-bold text-[#2D3648] uppercase tracking-wide">
+                Kitne Team Member Chaiye (Total Team Size)
+              </label>
+              <input
+                type="number"
+                value={formData.teamSize}
+                onChange={(e) => setFormData({ ...formData, teamSize: parseInt(e.target.value) || 0 })}
+                className="w-full px-5 py-4 rounded-2xl border-[3px] border-[#2D3648] focus:outline-none focus:ring-4 focus:ring-[#FF9A62]/30 transition-all font-semibold text-base"
+                placeholder="e.g., 4"
+                min="1"
                 required
               />
             </div>
 
             <div className="space-y-3">
               <label className="block text-sm font-bold text-[#2D3648] uppercase tracking-wide">
-                Hackathon Name
+                No. of Users Left (Available Slots)
               </label>
               <input
-                type="text"
-                value={formData.hackathon}
-                onChange={(e) => setFormData({ ...formData, hackathon: e.target.value })}
+                type="number"
+                value={formData.slotsLeft}
+                onChange={(e) => setFormData({ ...formData, slotsLeft: parseInt(e.target.value) || 0 })}
                 className="w-full px-5 py-4 rounded-2xl border-[3px] border-[#2D3648] focus:outline-none focus:ring-4 focus:ring-[#FF9A62]/30 transition-all font-semibold text-base"
-                placeholder="e.g., HackTheNorth 2025"
+                placeholder="e.g., 3"
+                min="0"
                 required
               />
-              <div className="flex flex-wrap gap-3 justify-start">
-                {popularHackathons.map((hackathon: string) => (
-                  <button
-                    key={hackathon}
-                    type="button"
-                    onClick={() => setFormData({ ...formData, hackathon: hackathon })}
-                    className="px-5 py-3 bg-[#6DD5ED]/20 hover:bg-[#6DD5ED]/30 text-[#2D3648] rounded-full text-sm font-bold border-2 border-[#2D3648]/20 transition-all flex-shrink-0"
-                  >
-                    {hackathon}
-                  </button>
-                ))}
-              </div>
             </div>
 
             <div className="space-y-3">
@@ -183,7 +250,7 @@ export default function CreatePage() {
               className="w-full doodle-button bg-gradient-to-r from-[#FFD93D] to-[#FFAA33] text-white hover:from-[#FFC91D] hover:to-[#FF9A23] text-lg flex items-center justify-center space-x-2 py-4 rounded-2xl font-bold text-base"
             >
               <Rocket className="w-5 h-5" />
-              <span>Create Project</span>
+              <span>Create Team</span>
             </button>
           </form>
         </div>
@@ -195,7 +262,7 @@ export default function CreatePage() {
                 <CheckCircle className="w-10 h-10 text-white" strokeWidth={2.5} />
               </div>
               <h2 className="text-2xl font-bold text-[#2D3648] mb-2">
-                Project Created!
+                Team Created!
               </h2>
               <p className="text-[#2D3648]/70 font-semibold">
                 Redirecting to your teams...

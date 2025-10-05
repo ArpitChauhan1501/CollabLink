@@ -77,105 +77,84 @@ export default function MyTeamsPage() {
             </div>
           </div>
         ) : (
-          <div className="space-y-5 sm:space-y-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6">
             {myTeams.map((team) => {
               const Icon = team.icon;
               return (
-                <div key={team.id} className="doodle-card group" style={{ minHeight: '220px' }}>
-                  <div className="flex flex-col lg:flex-row h-full gap-0 lg:gap-6">
-                    <div className="flex-1 h-full flex flex-col">
-                      <div className="p-4 lg:p-6 flex-grow">
-                        <div className="flex items-start gap-3 sm:gap-4">
-                          <div className={`w-14 h-14 bg-gradient-to-br ${team.color} rounded-xl flex items-center justify-center border-[3px] border-[#2D3648] flex-shrink-0 group-hover:rotate-6 transition-transform duration-300`}>
-                            <Icon className="w-7 h-7 text-white" strokeWidth={2.5} />
+                <div key={team.id} className="doodle-card group" style={{ minHeight: '280px' }}>
+                  <div className="flex flex-col h-full gap-0 lg:gap-6">
+                    <div className="flex-1 flex flex-col p-4 lg:p-6">
+                      <div className="flex items-start gap-3 sm:gap-4 mb-4 lg:mb-6">
+                        <div className={`w-14 h-14 bg-gradient-to-br ${team.color} rounded-xl flex items-center justify-center border-[3px] border-[#2D3648] flex-shrink-0 group-hover:rotate-6 transition-transform duration-300`}>
+                          <Icon className="w-7 h-7 text-white" strokeWidth={2.5} />
+                        </div>
+
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2 sm:gap-3 mb-2">
+                            <h3 className="text-xl sm:text-2xl font-bold text-[#2D3648] truncate">
+                              {team.title}
+                            </h3>
+                            <span className="px-2 py-1 bg-[#6DD5ED]/20 text-[#2D3648] rounded-full text-xs sm:text-sm font-bold border-2 border-[#2D3648]/20 whitespace-nowrap">
+                              {team.role}
+                            </span>
                           </div>
 
-                          <div className="flex-1 min-w-0">
-                            <div className="flex items-center gap-2 sm:gap-3 mb-2">
-                              <h3 className="text-xl sm:text-2xl font-bold text-[#2D3648] truncate">
-                                {team.title}
-                              </h3>
-                              <span className="px-2 py-1 bg-[#6DD5ED]/20 text-[#2D3648] rounded-full text-xs sm:text-sm font-bold border-2 border-[#2D3648]/20 whitespace-nowrap">
-                                {team.role}
+                          <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-xs sm:text-sm">
+                            <div className="flex items-center space-x-1.5 sm:space-x-2 text-[#2D3648]/70 min-w-0">
+                              <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
+                              <span className="font-semibold truncate">{team.hackathon}</span>
+                            </div>
+
+                            <div className="flex items-center space-x-1.5 sm:space-x-2 text-[#2D3648]/70">
+                              <Users className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
+                              <span className="font-semibold">{team.members} members</span>
+                            </div>
+
+                            <div className="flex items-center space-x-1.5 sm:space-x-2">
+                              <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-[#6DD5ED] rounded-full animate-pulse flex-shrink-0"></div>
+                              <span className="font-semibold text-[#2D3648]/70">
+                                Active · {team.lastActivity}
                               </span>
                             </div>
-
-                            <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-xs sm:text-sm">
-                              <div className="flex items-center space-x-1.5 sm:space-x-2 text-[#2D3648]/70 min-w-0">
-                                <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
-                                <span className="font-semibold truncate">{team.hackathon}</span>
-                              </div>
-
-                              <div className="flex items-center space-x-1.5 sm:space-x-2 text-[#2D3648]/70">
-                                <Users className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
-                                <span className="font-semibold">{team.members} members</span>
-                              </div>
-
-                              <div className="flex items-center space-x-1.5 sm:space-x-2">
-                                <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-[#6DD5ED] rounded-full animate-pulse flex-shrink-0"></div>
-                                <span className="font-semibold text-[#2D3648]/70">
-                                  Active · {team.lastActivity}
-                                </span>
-                              </div>
-                            </div>
                           </div>
                         </div>
                       </div>
 
-                      <div className="p-4 lg:p-6 flex-shrink-0">
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 mb-4 lg:mb-0">
-                          <div className="p-2 sm:p-3 bg-gradient-to-br from-[#6DD5ED]/10 to-[#2193B0]/10 rounded-lg sm:rounded-xl border-2 border-[#2D3648]/10 text-center">
-                            <p className="text-xs font-bold text-[#2D3648]/50 mb-1">Tasks</p>
-                            <p className="text-base sm:text-lg font-bold text-[#2D3648]">8/12</p>
-                          </div>
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3">
+                        <div className="p-2 sm:p-3 bg-gradient-to-br from-[#6DD5ED]/10 to-[#2193B0]/10 rounded-lg sm:rounded-xl border-2 border-[#2D3648]/10 text-center">
+                          <p className="text-xs font-bold text-[#2D3648]/50 mb-1">Tasks</p>
+                          <p className="text-base sm:text-lg font-bold text-[#2D3648]">8/12</p>
+                        </div>
 
-                          <div className="p-2 sm:p-3 bg-gradient-to-br from-[#FFD93D]/10 to-[#FFAA33]/10 rounded-lg sm:rounded-xl border-2 border-[#2D3648]/10 text-center">
-                            <p className="text-xs font-bold text-[#2D3648]/50 mb-1">Messages</p>
-                            <p className="text-base sm:text-lg font-bold text-[#2D3648]">42</p>
-                          </div>
+                        <div className="p-2 sm:p-3 bg-gradient-to-br from-[#FFD93D]/10 to-[#FFAA33]/10 rounded-lg sm:rounded-xl border-2 border-[#2D3648]/10 text-center">
+                          <p className="text-xs font-bold text-[#2D3648]/50 mb-1">Messages</p>
+                          <p className="text-base sm:text-lg font-bold text-[#2D3648]">42</p>
+                        </div>
 
-                          <div className="p-2 sm:p-3 bg-gradient-to-br from-[#FF9A62]/10 to-[#FF6B9D]/10 rounded-lg sm:rounded-xl border-2 border-[#2D3648]/10 text-center">
-                            <p className="text-xs font-bold text-[#2D3648]/50 mb-1">Progress</p>
-                            <p className="text-base sm:text-lg font-bold text-[#2D3648]">67%</p>
-                          </div>
+                        <div className="p-2 sm:p-3 bg-gradient-to-br from-[#FF9A62]/10 to-[#FF6B9D]/10 rounded-lg sm:rounded-xl border-2 border-[#2D3648]/10 text-center">
+                          <p className="text-xs font-bold text-[#2D3648]/50 mb-1">Progress</p>
+                          <p className="text-base sm:text-lg font-bold text-[#2D3648]">67%</p>
+                        </div>
 
-                          <div className="p-2 sm:p-3 bg-gradient-to-br from-[#6DD5ED]/10 to-[#2193B0]/10 rounded-lg sm:rounded-xl border-2 border-[#2D3648]/10 text-center">
-                            <p className="text-xs font-bold text-[#2D3648]/50 mb-1">Days Left</p>
-                            <p className="text-base sm:text-lg font-bold text-[#2D3648]">5</p>
-                          </div>
+                        <div className="p-2 sm:p-3 bg-gradient-to-br from-[#6DD5ED]/10 to-[#2193B0]/10 rounded-lg sm:rounded-xl border-2 border-[#2D3648]/10 text-center">
+                          <p className="text-xs font-bold text-[#2D3648]/50 mb-1">Days Left</p>
+                          <p className="text-base sm:text-lg font-bold text-[#2D3648]">5</p>
                         </div>
                       </div>
                     </div>
 
-                    <div className="hidden lg:flex flex-row gap-2 w-full justify-end items-end p-4 lg:p-6">
-                      <button className="doodle-button bg-gradient-to-r from-[#6DD5ED] to-[#2193B0] text-white hover:from-[#5DC5DD] hover:to-[#1883A0] flex items-center justify-center space-x-1.5 sm:space-x-2 py-2.5 px-4 flex-1">
+                    <div className="flex flex-col lg:flex-row lg:justify-end gap-2 p-4 lg:p-6">
+                      <button className="doodle-button bg-gradient-to-r from-[#6DD5ED] to-[#2193B0] text-white hover:from-[#5DC5DD] hover:to-[#1883A0] flex items-center justify-center space-x-1.5 sm:space-x-2 py-2.5 px-4 lg:flex-1">
                         <ExternalLink className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                         <span className="text-sm">View Details</span>
                       </button>
 
-                      <button className="doodle-button bg-white text-[#2D3648] hover:bg-[#FFD93D]/20 flex items-center justify-center space-x-1.5 sm:space-x-2 py-2.5 px-4 flex-1">
+                      <button className="doodle-button bg-white text-[#2D3648] hover:bg-[#FFD93D]/20 flex items-center justify-center space-x-1.5 sm:space-x-2 py-2.5 px-4 lg:flex-1">
                         <MessageCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                         <span className="text-sm">Chat</span>
                       </button>
 
-                      <button className="doodle-button bg-white text-[#2D3648] hover:bg-[#FF9A62]/20 flex items-center justify-center space-x-1.5 sm:space-x-2 py-2.5 px-4 flex-1">
-                        <Settings className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                        <span className="text-sm">Settings</span>
-                      </button>
-                    </div>
-
-                    <div className="lg:hidden flex flex-col gap-2 p-4 lg:p-6">
-                      <button className="doodle-button bg-gradient-to-r from-[#6DD5ED] to-[#2193B0] text-white hover:from-[#5DC5DD] hover:to-[#1883A0] flex items-center justify-center space-x-1.5 sm:space-x-2 py-2.5 px-4">
-                        <ExternalLink className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                        <span className="text-sm">View Details</span>
-                      </button>
-
-                      <button className="doodle-button bg-white text-[#2D3648] hover:bg-[#FFD93D]/20 flex items-center justify-center space-x-1.5 sm:space-x-2 py-2.5 px-4">
-                        <MessageCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                        <span className="text-sm">Chat</span>
-                      </button>
-
-                      <button className="doodle-button bg-white text-[#2D3648] hover:bg-[#FF9A62]/20 flex items-center justify-center space-x-1.5 sm:space-x-2 py-2.5 px-4">
+                      <button className="doodle-button bg-white text-[#2D3648] hover:bg-[#FF9A62]/20 flex items-center justify-center space-x-1.5 sm:space-x-2 py-2.5 px-4 lg:flex-1">
                         <Settings className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                         <span className="text-sm">Settings</span>
                       </button>

@@ -4,55 +4,59 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import ProtectedRoute from '@/components/ProtectedRoute';
-import { Search, Filter, MessageCircle, Save, Users, MapPin, DollarSign, Calendar, User, MessageSquare, Plus, Eye, ArrowRight, X, Trophy } from 'lucide-react';
+import { Search, Filter, MessageCircle, Save, Users, MapPin, DollarSign, Calendar, User, MessageSquare, Plus, Eye, ArrowRight, X, Trophy, Linkedin, Instagram, Menu, Edit, FilePlus } from 'lucide-react';
 
 export default function HomePage() {
   const { logout } = useAuth();
   const [selectedHackathon, setSelectedHackathon] = useState(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
+  const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
   const hackathons = [
     {
       id: 1,
-      name: 'HackTheNorth 2025',
-      organizer: 'University of Waterloo',
-      location: 'Waterloo, ON, Canada',
-      price: '$50',
-      deadline: 'Oct 15, 2025',
-      date: 'Oct 17-19, 2025',
-      prizes: 'Over $100,000 in cash & gadgets',
-      description: 'Join Canada\'s largest hackathon with top-tier workshops and networking events.',
+      name: 'MumbaiHacks 2025',
+      organizer: 'MumbaiHacks',
+      location: 'Mumbai, India',
+      price: 'Free',
+      deadline: 'Nov 20, 2025',
+      date: 'Nov 28-29, 2025',
+      prizes: '₹50 Lakh in rewards',
+      description: 'India\'s largest hackathon bringing together 3,000 innovators to solve real-world challenges.',
     },
     {
       id: 2,
-      name: 'MLH Local Hack Day',
-      organizer: 'Major League Hacking',
-      location: 'Virtual (Global Participation)',
+      name: 'Smart India Hackathon 2025',
+      organizer: 'Ministry of Education, Govt. of India',
+      location: 'Multiple Cities, India',
       price: 'Free',
-      deadline: 'Nov 1, 2025',
-      date: 'Nov 8-9, 2025',
-      prizes: 'Exclusive swag & mentorship from industry experts',
-      description: 'A global virtual event focusing on local innovation and skill-building.',
+      deadline: 'Nov 15, 2025',
+      date: 'Dec 1-2, 2025',
+      prizes: '₹1 Crore+ in prizes & opportunities',
+      description: 'National-level initiative to foster innovation and problem-solving using technology for societal impact.',
     },
   ];
 
   const projects = [
     {
       id: 1,
-      name: 'AI Chatbot',
-      type: 'Web App',
-      tags: ['AI', 'Chatbot', 'NLP'],
-      progress: '2/5',
-      description: 'An intelligent chatbot to assist with hackathon queries and team coordination.',
-      purpose: 'Enhance communication during events',
+      name: 'AgriSense',
+      type: 'Mobile App',
+      tags: ['AI', 'Agriculture', 'IoT'],
+      progress: '3/5',
+      description: 'IoT-based soil monitoring and AI crop recommendation system tailored for Indian farmers.',
+      purpose: 'Boost agricultural productivity and sustainability in rural India',
     },
     {
       id: 2,
-      name: 'Sustainable Tracker',
-      type: 'Mobile App',
-      tags: ['Sustainability', 'IoT', 'GreenTech'],
-      progress: '3/4',
-      description: 'Track and reduce carbon footprint with real-time analytics.',
-      purpose: 'Promote eco-friendly hackathon practices',
+      name: 'SwachhCity',
+      type: 'Web App',
+      tags: ['Sustainability', 'ML', 'CivicTech'],
+      progress: '2/4',
+      description: 'ML-powered platform to optimize waste collection routes and promote recycling in urban Indian cities.',
+      purpose: 'Enhance urban cleanliness and environmental awareness through smart civic solutions',
     },
   ];
 
@@ -61,6 +65,51 @@ export default function HomePage() {
   return (
     <ProtectedRoute>
       <div className="relative min-h-screen bg-gradient-to-br from-[#FFFBF5] via-[#FFF8F0] to-[#F0F8FF]">
+      {/* Mobile Menu Overlay */}
+      {isMobileMenuOpen && (
+        <div className="fixed inset-0 z-50 bg-black/50 md:hidden" onClick={closeMobileMenu} />
+      )}
+      
+      {/* Mobile Sidebar */}
+      <div className={`fixed top-0 left-0 h-full w-64 bg-white/90 backdrop-blur-sm border-r border-[#2D3648]/20 z-50 transform transition-transform duration-300 ease-in-out md:hidden ${
+        isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
+      }`}>
+        <div className="flex items-center justify-between p-4 border-b border-[#2D3648]/20">
+          <div className="flex items-center space-x-2">
+            <div className="logo-container relative">
+              <div className="logo-circle w-10 h-10 bg-gradient-to-br from-pink-400 to-pink-500 rounded-full flex items-center justify-center shadow-lg border-2 border-white/50">
+                <User className="w-5 h-5 text-white drop-shadow-sm" />
+              </div>
+            </div>
+            <span className="text-xl font-bold text-[#2D3648]">CollabLink</span>
+          </div>
+          <button onClick={closeMobileMenu} className="text-[#2D3648]">
+            <X className="w-6 h-6" />
+          </button>
+        </div>
+        <nav className="p-4 space-y-4">
+          <Link href="/" className="block px-4 py-2 bg-orange-400 text-white rounded-full text-sm font-semibold hover:bg-orange-500 transition-colors" onClick={closeMobileMenu}>
+            Home
+          </Link>
+          <Link href="/explore" className="block px-4 py-2 text-[#2D3648] hover:text-[#FF9A62] font-semibold transition-colors" onClick={closeMobileMenu}>
+            Explore Teams
+          </Link>
+          <Link href="/edit-profile" className="flex items-center space-x-2 px-4 py-2 bg-white text-[#2D3648] rounded-full text-sm font-semibold border border-[#FF9A62]/20 hover:bg-[#FF9A62]/5 transition-colors shadow-md hover:shadow-lg" onClick={closeMobileMenu}>
+            <Edit className="w-4 h-4 text-[#FF9A62]" />
+            <span>Edit Profile</span>
+          </Link>
+          <Link href="/create-project" className="flex items-center space-x-2 px-4 py-2 bg-white text-[#2D3648] rounded-full text-sm font-semibold border border-[#6DD5ED]/20 hover:bg-[#6DD5ED]/5 transition-colors shadow-md hover:shadow-lg" onClick={closeMobileMenu}>
+            <FilePlus className="w-4 h-4 text-[#6DD5ED]" />
+            <span>Create Project</span>
+          </Link>
+        </nav>
+        <div className="absolute bottom-4 left-4 right-4">
+          <button onClick={logout} className="w-full doodle-button bg-white text-[#2D3648] text-sm px-4 py-2 border border-[#2D3648]/20 rounded-full hover:bg-[#2D3648]/5 transition-colors">
+            Log Out
+          </button>
+        </div>
+      </div>
+
       {/* Header */}
       <header className="bg-white/80 backdrop-blur-sm border-b border-[#2D3648]/20 px-4 py-4">
         <div className="max-w-6xl mx-auto flex justify-between items-center">
@@ -72,11 +121,27 @@ export default function HomePage() {
             </div>
             <span className="text-xl font-bold text-[#2D3648]">CollabLink</span>
           </div>
-          <nav className="flex items-center space-x-4">
+          {/* Desktop Nav */}
+          <nav className="hidden md:flex items-center space-x-4">
             <Link href="/" className="px-4 py-2 bg-orange-400 text-white rounded-full text-sm font-semibold hover:bg-orange-500 transition-colors">Home</Link>
             <Link href="/explore" className="px-4 py-2 text-[#2D3648] hover:text-[#FF9A62] font-semibold transition-colors">Explore Teams</Link>
+            <Link href="/edit-profile" className="flex items-center space-x-2 px-4 py-2 bg-white text-[#2D3648] rounded-full text-sm font-semibold border border-[#FF9A62]/20 hover:bg-[#FF9A62]/5 transition-colors shadow-md hover:shadow-lg">
+              <Edit className="w-4 h-4 text-[#FF9A62]" />
+              <span>Edit Profile</span>
+            </Link>
+            <Link href="/create-project" className="flex items-center space-x-2 px-4 py-2 bg-white text-[#2D3648] rounded-full text-sm font-semibold border border-[#6DD5ED]/20 hover:bg-[#6DD5ED]/5 transition-colors shadow-md hover:shadow-lg">
+              <FilePlus className="w-4 h-4 text-[#6DD5ED]" />
+              <span>Create Project</span>
+            </Link>
           </nav>
-          <div className="flex items-center space-x-4">
+          {/* Mobile Menu Button */}
+          <div className="flex items-center space-x-4 md:hidden">
+            <button onClick={toggleMobileMenu} className="text-[#2D3648] p-2">
+              <Menu className="w-6 h-6" />
+            </button>
+          </div>
+          {/* Desktop Right Side */}
+          <div className="hidden md:flex items-center space-x-4">
             <button onClick={logout} className="doodle-button bg-white text-[#2D3648] text-sm px-4 py-2">Log Out</button>
           </div>
         </div>
@@ -87,25 +152,49 @@ export default function HomePage() {
         {/* User Greeting and Badges Section */}
         <section className="mb-12 text-center">
           <div className="flex items-center justify-start mb-6">
-            <div className="logo-container relative mr-4">
-              <div className="logo-circle w-12 h-12 bg-gradient-to-br from-[#FF9A62] to-[#FF6B9D] rounded-full flex items-center justify-center shadow-lg border-2 border-white/50">
-                <User className="w-6 h-6 text-white drop-shadow-sm" />
-              </div>
-            </div>
+            <img
+              src="https://api.dicebear.com/7.x/avataaars/png?seed=Ankit&backgroundColor=FF9A62"
+              alt="Ankit's avatar"
+              className="w-16 h-16 rounded-full shadow-lg border-2 border-white/50 mr-4 object-cover"
+            />
             <h2 className="text-2xl font-bold text-[#2D3648]">Hi Ankit</h2>
           </div>
+          <div className="flex justify-start space-x-4 mb-6">
+            <a
+              href="https://linkedin.com/in/ankit"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-16 h-16 bg-[#0077B5] rounded-full flex items-center justify-center shadow-md border-2 border-[#FF9A62] hover:bg-[#005885] transition-all duration-300 transform hover:scale-110 animate-pulse-slow"
+              aria-label="LinkedIn Profile"
+            >
+              <Linkedin className="w-8 h-8 text-white drop-shadow-sm" />
+            </a>
+            <a
+              href="https://instagram.com/ankit"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-16 h-16 bg-gradient-to-r from-[#E4405F] to-[#F77737] rounded-full flex items-center justify-center shadow-md border-2 border-[#FF9A62] hover:from-[#D73554] hover:to-[#D63F1E] transition-all duration-300 transform hover:scale-110 animate-pulse-slow delay-100"
+              aria-label="Instagram Profile"
+            >
+              <Instagram className="w-8 h-8 text-white drop-shadow-sm" />
+            </a>
+          </div>
           <div className="flex justify-center space-x-4 mb-6">
-            <div className="w-16 h-16 bg-[#FFD93D] rounded-full flex items-center justify-center shadow-md border-2 border-[#FF9A62] hover:bg-[#FF9A62] transition-all duration-300 transform hover:scale-110 animate-pulse-slow">
-              <Trophy className="w-8 h-8 text-white" />
+            <div className="w-16 h-16 bg-gradient-to-br from-[#FFD93D] to-[#FF9A62] rounded-full flex items-center justify-center shadow-lg border-2 border-white/30 hover:from-[#FF9A62] hover:to-[#FF6B9D] transition-all duration-300 transform hover:scale-110 animate-pulse-slow relative overflow-hidden">
+              <div className="absolute inset-0 bg-white/10 rounded-full blur" />
+              <Trophy className="w-8 h-8 text-white relative z-10 drop-shadow-sm" />
             </div>
-            <div className="w-16 h-16 bg-[#FFD93D] rounded-full flex items-center justify-center shadow-md border-2 border-[#FF9A62] hover:bg-[#FF9A62] transition-all duration-300 transform hover:scale-110 animate-pulse-slow delay-100">
-              <Users className="w-8 h-8 text-white" />
+            <div className="w-16 h-16 bg-gradient-to-br from-[#FFD93D] to-[#FF9A62] rounded-full flex items-center justify-center shadow-lg border-2 border-white/30 hover:from-[#FF9A62] hover:to-[#FF6B9D] transition-all duration-300 transform hover:scale-110 animate-pulse-slow delay-100 relative overflow-hidden">
+              <div className="absolute inset-0 bg-white/10 rounded-full blur" />
+              <Users className="w-8 h-8 text-white relative z-10 drop-shadow-sm" />
             </div>
-            <div className="w-16 h-16 bg-[#FFD93D] rounded-full flex items-center justify-center shadow-md border-2 border-[#FF9A62] hover:bg-[#FF9A62] transition-all duration-300 transform hover:scale-110 animate-pulse-slow delay-200">
-              <Calendar className="w-8 h-8 text-white" />
+            <div className="w-16 h-16 bg-gradient-to-br from-[#FFD93D] to-[#FF9A62] rounded-full flex items-center justify-center shadow-lg border-2 border-white/30 hover:from-[#FF9A62] hover:to-[#FF6B9D] transition-all duration-300 transform hover:scale-110 animate-pulse-slow delay-200 relative overflow-hidden">
+              <div className="absolute inset-0 bg-white/10 rounded-full blur" />
+              <Calendar className="w-8 h-8 text-white relative z-10 drop-shadow-sm" />
             </div>
-            <div className="w-16 h-16 bg-[#FFD93D] rounded-full flex items-center justify-center shadow-md border-2 border-[#FF9A62] hover:bg-[#FF9A62] transition-all duration-300 transform hover:scale-110 animate-pulse-slow delay-300">
-              <MapPin className="w-8 h-8 text-white" />
+            <div className="w-16 h-16 bg-gradient-to-br from-[#FFD93D] to-[#FF9A62] rounded-full flex items-center justify-center shadow-lg border-2 border-white/30 hover:from-[#FF9A62] hover:to-[#FF6B9D] transition-all duration-300 transform hover:scale-110 animate-pulse-slow delay-300 relative overflow-hidden">
+              <div className="absolute inset-0 bg-white/10 rounded-full blur" />
+              <MapPin className="w-8 h-8 text-white relative z-10 drop-shadow-sm" />
             </div>
           </div>
         </section>
