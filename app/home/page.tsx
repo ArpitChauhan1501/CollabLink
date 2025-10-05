@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import ProtectedRoute from '@/components/ProtectedRoute';
-import { Search, Filter, MessageCircle, Save, Users, MapPin, DollarSign, Calendar, User, MessageSquare, Plus, Eye, ArrowRight, X, Trophy, Linkedin, Instagram, Menu, Edit, FilePlus } from 'lucide-react';
+import { Search, Filter, MessageCircle, Save, Users, MapPin, DollarSign, Calendar, User, MessageSquare, Plus, Eye, ArrowRight, X, Trophy, Linkedin, Instagram, Menu, Edit, FilePlus, Rocket, Zap, Clock, Briefcase } from 'lucide-react';
 
 export default function HomePage() {
   const { logout } = useAuth();
@@ -15,6 +15,45 @@ export default function HomePage() {
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
   const hackathons = [
+    {
+      id: 1,
+      name: 'HackTheNorth 2025',
+      organizer: 'University of Waterloo',
+      location: 'Waterloo, ON',
+      price: '$50',
+      deadline: 'Oct 15, 2025',
+      date: 'October 17-19, 2025',
+      prizes: 'Over $100,000 in prizes',
+      description: 'Canada\'s largest hackathon, bringing together students from across the country to innovate and collaborate.',
+      themes: ['AI', 'Sustainability', 'Health Tech'],
+    },
+    {
+      id: 2,
+      name: 'MLH Local Hack Day',
+      organizer: 'Major League Hacking',
+      location: 'Virtual',
+      price: 'Free',
+      deadline: 'Nov 1, 2025',
+      date: 'November 8-9, 2025',
+      prizes: 'Swag and mentorship opportunities',
+      description: 'A global virtual hackathon focused on local impact and learning new skills.',
+      themes: ['Open Source', 'Web Dev', 'Mobile'],
+    },
+    {
+      id: 3,
+      name: 'TechCrunch Disrupt',
+      organizer: 'TechCrunch',
+      location: 'San Francisco, CA',
+      price: '$200',
+      deadline: 'Sep 20, 2025',
+      date: 'October 14-16, 2025',
+      prizes: '$50,000 grand prize',
+      description: 'The premier startup event with a hackathon for building the next big thing.',
+      themes: ['Startups', 'FinTech', 'AR/VR'],
+    },
+  ];
+
+  const savedHackathons = [
     {
       id: 1,
       name: 'MumbaiHacks 2025',
@@ -39,7 +78,61 @@ export default function HomePage() {
     },
   ];
 
+  const participants = [
+    {
+      id: 1,
+      name: 'Alice Johnson',
+      college: 'Stanford University',
+      location: 'Palo Alto, CA',
+      skills: ['React', 'Node.js', 'UI/UX Design'],
+      bio: 'Passionate full-stack developer with 3 years of experience in building interactive web applications. Loves collaborating on innovative projects.',
+      experience: '3 years',
+      availability: 'Full-time available weekends',
+      github: 'https://github.com/alicejohnson',
+      linkedin: 'https://linkedin.com/in/alicejohnson',
+    },
+    {
+      id: 2,
+      name: 'Bob Smith',
+      college: 'MIT',
+      location: 'Cambridge, MA',
+      skills: ['Python', 'ML', 'Data Science'],
+      bio: 'Machine learning enthusiast specializing in AI models for real-world applications. Eager to tackle challenging hackathon problems.',
+      experience: '2 years',
+      availability: 'Available evenings and weekends',
+      github: 'https://github.com/bobsmith',
+      linkedin: 'https://linkedin.com/in/bobsmith',
+    },
+  ];
+
   const projects = [
+    {
+      id: 1,
+      name: 'AI Chatbot',
+      type: 'Web App',
+      tags: ['AI', 'Chatbot'],
+      progress: '2/5',
+      description: 'Chatbot for hackathons related doubts',
+    },
+    {
+      id: 2,
+      name: 'Sustainable Tracker',
+      type: 'Mobile App',
+      tags: ['Sustainability', 'IoT'],
+      progress: '3/4',
+      description: 'Track carbon footprint during events',
+    },
+    {
+      id: 3,
+      name: 'VR Collaboration Tool',
+      type: 'VR App',
+      tags: ['VR', 'Collaboration'],
+      progress: '1/6',
+      description: 'Virtual reality team building for remote hackathons',
+    },
+  ];
+
+  const savedProjects = [
     {
       id: 1,
       name: 'AgriSense',
@@ -94,13 +187,11 @@ export default function HomePage() {
           <Link href="/explore" className="block px-4 py-2 text-[#2D3648] hover:text-[#FF9A62] font-semibold transition-colors" onClick={closeMobileMenu}>
             Explore Teams
           </Link>
-          <Link href="/edit-profile" className="flex items-center space-x-2 px-4 py-2 bg-white text-[#2D3648] rounded-full text-sm font-semibold border border-[#FF9A62]/20 hover:bg-[#FF9A62]/5 transition-colors shadow-md hover:shadow-lg" onClick={closeMobileMenu}>
-            <Edit className="w-4 h-4 text-[#FF9A62]" />
-            <span>Edit Profile</span>
+          <Link href="/profile" className="block px-4 py-2 text-[#2D3648] hover:text-[#FF9A62] font-semibold transition-colors" onClick={closeMobileMenu}>
+            Edit Profile
           </Link>
-          <Link href="/create-project" className="flex items-center space-x-2 px-4 py-2 bg-white text-[#2D3648] rounded-full text-sm font-semibold border border-[#6DD5ED]/20 hover:bg-[#6DD5ED]/5 transition-colors shadow-md hover:shadow-lg" onClick={closeMobileMenu}>
-            <FilePlus className="w-4 h-4 text-[#6DD5ED]" />
-            <span>Create Project</span>
+          <Link href="/create" className="block px-4 py-2 text-[#2D3648] hover:text-[#FF9A62] font-semibold transition-colors" onClick={closeMobileMenu}>
+            Create Project
           </Link>
         </nav>
         <div className="absolute bottom-4 left-4 right-4">
@@ -125,14 +216,8 @@ export default function HomePage() {
           <nav className="hidden md:flex items-center space-x-4">
             <Link href="/" className="px-4 py-2 bg-orange-400 text-white rounded-full text-sm font-semibold hover:bg-orange-500 transition-colors">Home</Link>
             <Link href="/explore" className="px-4 py-2 text-[#2D3648] hover:text-[#FF9A62] font-semibold transition-colors">Explore Teams</Link>
-            <Link href="/edit-profile" className="flex items-center space-x-2 px-4 py-2 bg-white text-[#2D3648] rounded-full text-sm font-semibold border border-[#FF9A62]/20 hover:bg-[#FF9A62]/5 transition-colors shadow-md hover:shadow-lg">
-              <Edit className="w-4 h-4 text-[#FF9A62]" />
-              <span>Edit Profile</span>
-            </Link>
-            <Link href="/create-project" className="flex items-center space-x-2 px-4 py-2 bg-white text-[#2D3648] rounded-full text-sm font-semibold border border-[#6DD5ED]/20 hover:bg-[#6DD5ED]/5 transition-colors shadow-md hover:shadow-lg">
-              <FilePlus className="w-4 h-4 text-[#6DD5ED]" />
-              <span>Create Project</span>
-            </Link>
+            <Link href="/profile" className="px-4 py-2 text-[#2D3648] hover:text-[#FF9A62] font-semibold transition-colors">Edit Profile</Link>
+            <Link href="/create" className="px-4 py-2 text-[#2D3648] hover:text-[#FF9A62] font-semibold transition-colors">Create Project</Link>
           </nav>
           {/* Mobile Menu Button */}
           <div className="flex items-center space-x-4 md:hidden">
@@ -202,8 +287,8 @@ export default function HomePage() {
         {/* Saved Hackathons Section */}
         <section className="mb-12">
           <h2 className="text-3xl font-bold text-[#2D3648] mb-6">Saved Hackathons</h2>
-          <div className="grid md:grid-cols-2 gap-6">
-            {hackathons.map((hack) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {savedHackathons.map((hack) => (
               <div key={hack.id} className="doodle-card p-6 bg-white/90 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
                 <div className="flex justify-between items-start mb-4">
                   <h3 className="text-xl font-bold text-[#2D3648]">{hack.name}</h3>
@@ -246,8 +331,8 @@ export default function HomePage() {
         {/* Saved Projects Section */}
         <section className="mb-12">
           <h2 className="text-3xl font-bold text-[#2D3648] mb-6">Saved Projects</h2>
-          <div className="grid md:grid-cols-2 gap-6">
-            {projects.map((project) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {savedProjects.map((project) => (
               <div key={project.id} className="doodle-card p-6 bg-white/90 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
                 <div className="flex justify-between items-start mb-4">
                   <h3 className="text-xl font-bold text-[#2D3648]">{project.name}</h3>
@@ -281,7 +366,238 @@ export default function HomePage() {
             ))}
           </div>
         </section>
+
+        {/* Hackathons Section */}
+        <section className="mb-12">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+            <h2 className="text-3xl font-bold text-[#2D3648]">Hackathons</h2>
+            <div className="flex items-center space-x-2">
+              <Filter className="w-5 h-5 text-[#2D3648]" />
+              <span className="text-sm text-[#2D3648]/70">Filter</span>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            {hackathons.map((hack) => (
+              <div 
+                key={hack.id} 
+                className="doodle-card p-6 md:p-10 cursor-pointer hover:bg-blue-50 transition-colors" 
+                onClick={() => setSelectedHackathon(hack)}
+              >
+                <div className="flex justify-between items-start mb-2">
+                  <h3 className="font-bold text-[#2D3648] text-lg md:text-xl">{hack.name}</h3>
+                  <Save className="w-5 h-5 text-[#FF9A62]" />
+                </div>
+                <div className="space-y-3 text-sm text-[#2D3648]/70 mb-4">
+                  <div className="flex items-center">
+                    <Users className="w-4 h-4 mr-2" />
+                    <span>{hack.organizer}</span>
+                  </div>
+                  <div className="flex items-center">
+                    <MapPin className="w-4 h-4 mr-2" />
+                    <span>{hack.location}</span>
+                  </div>
+                  <div className="flex items-center">
+                    <DollarSign className="w-4 h-4 mr-2" />
+                    <span>{hack.price}</span>
+                  </div>
+                </div>
+                <div className="flex items-center text-sm text-[#2D3648]/50">
+                  <Calendar className="w-4 h-4 mr-2" />
+                  Deadline: {hack.deadline}
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="flex justify-end">
+            <Link href="/explore" className="doodle-button bg-white text-[#2D3648] text-sm px-6 py-2 flex items-center space-x-2">
+              View all <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </section>
+
+        {/* Participants Section */}
+        <section className="mb-12">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+            <h2 className="text-3xl font-bold text-[#2D3648]">Participants</h2>
+            <div className="flex items-center space-x-4">
+              <div className="relative">
+                <input type="text" placeholder="Search Profile" className="doodle-input w-full sm:w-48 bg-white/50 text-sm" />
+              </div>
+              <Filter className="w-5 h-5 text-[#2D3648]" />
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {participants.map((participant) => (
+              <div key={participant.id} className="doodle-card p-6 md:p-8">
+                <div className="flex items-center space-x-3 mb-3">
+                  <div className="w-10 h-10 bg-gradient-to-br from-[#FF9A62] to-[#FF6B9D] rounded-full flex items-center justify-center">
+                    <User className="w-5 h-5 text-white" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-bold text-[#2D3648] text-lg">{participant.name}</h3>
+                    <p className="text-sm text-[#2D3648]/70">{participant.college}</p>
+                  </div>
+                </div>
+                <div className="flex items-center text-xs text-[#2D3648]/50 mb-3">
+                  <MapPin className="w-3 h-3 mr-1" />
+                  {participant.location}
+                </div>
+                <div className="space-y-2 mb-3">
+                  <p className="text-sm text-[#2D3648]/80">{participant.bio}</p>
+                  <div className="flex items-center justify-between text-xs text-[#2D3648]/60">
+                    <div className="flex items-center">
+                      <Briefcase className="w-3 h-3 mr-1" />
+                      <span>{participant.experience}</span>
+                    </div>
+                    <div className="flex items-center">
+                      <Clock className="w-3 h-3 mr-1" />
+                      <span>{participant.availability}</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex flex-wrap space-x-1 mb-3">
+                  {participant.skills.map((skill, idx) => (
+                    <span key={idx} className="px-2 py-1 bg-[#FFD93D]/20 text-xs rounded-full text-[#2D3648]">
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+                <div className="flex space-x-2">
+                  <a href={participant.github} target="_blank" rel="noopener noreferrer" className="p-1 hover:bg-gray-100 rounded-full transition-colors">
+                    <MessageCircle className="w-4 h-4 text-[#FF9A62]" />
+                  </a>
+                  <a href={participant.linkedin} target="_blank" rel="noopener noreferrer" className="p-1 hover:bg-gray-100 rounded-full transition-colors">
+                    <Users className="w-4 h-4 text-[#2D3648]" />
+                  </a>
+                </div>
+              </div>
+            ))}
+            <div className="doodle-card p-6 md:p-8 flex items-center justify-center col-span-1 md:col-span-1">
+              <Link href="/participants" className="text-[#FF9A62] font-bold flex items-center">
+                View more <ArrowRight className="w-4 h-4 ml-1" />
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* Projects Section */}
+        <section className="mb-12">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+            <h2 className="text-3xl font-bold text-[#2D3648]">Projects</h2>
+            <div className="flex items-center space-x-4">
+              <div className="relative">
+                <input type="text" placeholder="Search Project" className="doodle-input w-full sm:w-48 bg-white/50 text-sm" />
+              </div>
+              <Filter className="w-5 h-5 text-[#2D3648]" />
+              <Plus className="w-5 h-5 text-[#FF9A62] cursor-pointer" />
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            {projects.map((project) => (
+              <div key={project.id} className="doodle-card p-6 md:p-10">
+                <div className="flex justify-between items-start mb-2">
+                  <h3 className="font-bold text-[#2D3648] text-lg">{project.name}</h3>
+                  <Save className="w-5 h-5 text-[#FF9A62]" />
+                </div>
+                <p className="text-sm text-[#2D3648]/70 mb-2">{project.type}</p>
+                <div className="flex flex-wrap space-x-1 mb-2">
+                  {project.tags.map((tag, idx) => (
+                    <span key={idx} className="px-2 py-1 bg-[#6DD5ED]/20 text-sm rounded-full text-[#2D3648]">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <p className="text-sm text-[#2D3648]/70 mb-3">{project.description}</p>
+                <div className="flex justify-between items-center text-sm text-[#2D3648]/50">
+                  <span>{project.progress}</span>
+                  <Eye className="w-4 h-4" />
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="flex justify-end">
+            <Link href="/projects" className="doodle-button bg-white text-[#2D3648] text-sm px-6 py-2 flex items-center space-x-2">
+              View all <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </section>
+
+        {/* Chatbot Section */}
+        <section className="mb-12">
+          <div className="doodle-card p-6 md:p-8 max-w-2xl mx-auto">
+            <div className="flex justify-between items-start mb-4">
+              <h3 className="font-bold text-[#2D3648] text-xl">Chatbot for Hackathons Related Doubts</h3>
+              <Save className="w-5 h-5 text-[#FF9A62]" />
+            </div>
+            <p className="text-[#2D3648]/70 text-lg mb-4">An intelligent assistant to answer all your hackathon queries, from team formation tips to project ideas.</p>
+            <div className="flex justify-end">
+              <Link href="/chatbot" className="doodle-button bg-gradient-to-r from-[#6DD5ED] to-[#2193B0] text-white flex items-center space-x-2">
+                <MessageSquare className="w-4 h-4" />
+                <span>Start Chat</span>
+              </Link>
+            </div>
+          </div>
+        </section>
       </main>
+
+      {/* Hackathon Modal */}
+      {selectedHackathon && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-white/95 backdrop-blur-lg rounded-3xl p-4 md:p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto relative">
+            <button onClick={closeModal} className="absolute top-4 right-4 text-[#2D3648] hover:text-[#FF9A62] transition-colors">
+              <X className="w-6 h-6" />
+            </button>
+            <h2 className="text-3xl font-bold text-[#2D3648] mb-4">{selectedHackathon.name}</h2>
+            <p className="text-lg text-[#2D3648]/80 mb-6">{selectedHackathon.description}</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm mb-6">
+              <div>
+                <div className="flex items-center mb-2">
+                  <Users className="w-4 h-4 mr-2 text-[#FF9A62]" />
+                  <span className="font-semibold">Organizer:</span> {selectedHackathon.organizer}
+                </div>
+                <div className="flex items-center mb-2">
+                  <MapPin className="w-4 h-4 mr-2 text-[#FF9A62]" />
+                  <span className="font-semibold">Location:</span> {selectedHackathon.location}
+                </div>
+                <div className="flex items-center mb-2">
+                  <DollarSign className="w-4 h-4 mr-2 text-[#FF9A62]" />
+                  <span className="font-semibold">Price:</span> {selectedHackathon.price}
+                </div>
+              </div>
+              <div>
+                <div className="flex items-center mb-2">
+                  <Calendar className="w-4 h-4 mr-2 text-[#FF9A62]" />
+                  <span className="font-semibold">Event Date:</span> {selectedHackathon.date}
+                </div>
+                <div className="flex items-center mb-2">
+                  <Calendar className="w-4 h-4 mr-2 text-[#FF9A62]" />
+                  <span className="font-semibold">Deadline:</span> {selectedHackathon.deadline}
+                </div>
+                <div className="flex items-center">
+                  <Trophy className="w-4 h-4 mr-2 text-[#FF9A62]" />
+                  <span className="font-semibold">Prizes:</span> {selectedHackathon.prizes}
+                </div>
+              </div>
+            </div>
+            <div className="mb-6">
+              <span className="font-semibold text-[#2D3648]">Themes:</span>
+              <div className="flex flex-wrap gap-2 mt-2">
+                {selectedHackathon.themes.map((theme, idx) => (
+                  <span key={idx} className="px-3 py-1 bg-[#6DD5ED]/20 text-xs rounded-full text-[#2D3648]">
+                    {theme}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div className="flex justify-end space-x-4">
+              <Link href="/explore" className="doodle-button bg-gradient-to-r from-[#FF9A62] to-[#FF6B9D] text-white flex items-center space-x-2">
+                <Users className="w-4 h-4" />
+                <span>Find Teams</span>
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
       </div>
     </ProtectedRoute>
   );
