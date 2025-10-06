@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import ProtectedRoute from '@/components/ProtectedRoute';
-import { Search, Filter, MessageCircle, Save, Users, MapPin, DollarSign, Calendar, User, MessageSquare, Plus, Eye, ArrowRight, X, Trophy, Linkedin, Instagram, Menu, Edit, FilePlus, Rocket, Zap, Clock, Briefcase } from 'lucide-react';
+import { Search, Filter, MessageCircle, Save, Users, MapPin, DollarSign, Calendar, User, MessageSquare, Plus, Eye, ArrowRight, X, Trophy, Linkedin, Instagram, Menu, Edit, FilePlus, Rocket, Zap, Clock, Briefcase, Share2 } from 'lucide-react';
 
 type Hackathon = {
   id: number;
@@ -215,6 +215,9 @@ export default function HomePage() {
           <Link href="/profile" className="block px-4 py-2 text-[#2D3648] hover:text-[#FF9A62] font-semibold transition-colors" onClick={closeMobileMenu}>
             Edit Profile
           </Link>
+          <Link href="/profilecard" className="block px-4 py-2 text-[#2D3648] hover:text-[#FF9A62] font-semibold transition-colors" onClick={closeMobileMenu}>
+            Share
+          </Link>
           <Link href="/create" className="block px-4 py-2 text-[#2D3648] hover:text-[#FF9A62] font-semibold transition-colors" onClick={closeMobileMenu}>
             Create Project
           </Link>
@@ -252,6 +255,10 @@ export default function HomePage() {
           </div>
           {/* Desktop Right Side */}
           <div className="hidden md:flex items-center space-x-4">
+            <Link href="/profilecard" className="doodle-button bg-white text-[#2D3648] text-sm px-4 py-2 flex items-center space-x-1">
+              <Share2 className="w-4 h-4" />
+              <span>Share</span>
+            </Link>
             <button onClick={logout} className="doodle-button bg-white text-[#2D3648] text-sm px-4 py-2">Log Out</button>
           </div>
         </div>
