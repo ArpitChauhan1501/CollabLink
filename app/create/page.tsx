@@ -168,7 +168,7 @@ export default function CreatePage() {
 
             <div className="space-y-3">
               <label className="block text-sm font-bold text-[#2D3648] uppercase tracking-wide">
-                Kitne Team Member Chaiye (Total Team Size)
+            Total Team Size
               </label>
               <input
                 type="number"
@@ -183,7 +183,7 @@ export default function CreatePage() {
 
             <div className="space-y-3">
               <label className="block text-sm font-bold text-[#2D3648] uppercase tracking-wide">
-                No. of Users Left (Available Slots)
+                Available Slots
               </label>
               <input
                 type="number"
