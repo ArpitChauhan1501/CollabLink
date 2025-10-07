@@ -281,11 +281,13 @@ export default function HomePage() {
         {/* User Greeting and Badges Section */}
         <section className="mb-12 text-center">
           <div className="flex items-center justify-start mb-6">
-            <img
-              src="https://api.dicebear.com/7.x/avataaars/png?seed=Ankit&backgroundColor=FF9A62"
-              alt="Ankit's avatar"
-              className="w-16 h-16 rounded-full shadow-lg border-2 border-white/50 mr-4 object-cover"
-            />
+            <Link href="/userprofile">
+              <img
+                src="https://api.dicebear.com/7.x/avataaars/png?seed=Ankit&backgroundColor=FF9A62"
+                alt="Ankit's avatar"
+                className="w-16 h-16 rounded-full shadow-lg border-2 border-white/50 mr-4 object-cover cursor-pointer hover:opacity-80 transition-opacity"
+              />
+            </Link>
             <h2 className="text-2xl font-bold text-[#2D3648]">Hi Ankit</h2>
           </div>
           <div className="flex justify-start space-x-4 mb-6">
