@@ -1,9 +1,11 @@
 'use client';
 
 import React, { useState } from 'react';
-import { User, Save, Users, Plus, Github, Linkedin, Twitter, Image as ImageIcon } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { User, Save, Users, Plus, Github, Linkedin, Twitter, Image as ImageIcon, ArrowLeft } from 'lucide-react';
 
 export default function UserAccountPage() {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     tagline: '',
     lookingForTeam: true,
@@ -72,6 +74,15 @@ export default function UserAccountPage() {
 
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-[#FFFBF5] via-[#FFF8F0] to-[#F0F8FF] p-4 sm:p-6">
+      <div className="flex items-center mb-8">
+        <button
+          onClick={() => router.back()}
+          className="flex items-center space-x-2 px-4 py-2 bg-white/80 rounded-full border-2 border-[#2D3648]/30 hover:bg-[#FFD93D]/20 transition-all text-[#2D3648] font-semibold shadow-lg"
+        >
+          <ArrowLeft className="w-5 h-5" />
+          <span>Back</span>
+        </button>
+      </div>
       <form onSubmit={handleSubmit} className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Main Content */}
         <div className="lg:col-span-2 space-y-6">

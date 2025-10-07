@@ -1,7 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { Users, Calendar, Code, Brain, MessageCircle, Settings, ExternalLink } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { Users, Calendar, Code, Brain, MessageCircle, Settings, ExternalLink, ArrowLeft } from 'lucide-react';
 
 const myTeams = [
   {
@@ -29,9 +30,20 @@ const myTeams = [
 ];
 
 export default function MyTeamsPage() {
+  const router = useRouter();
   return (
     <div className="py-8 px-4 sm:px-6">
       <div className="max-w-5xl mx-auto">
+        <div className="flex items-center mb-8">
+          <button
+            onClick={() => router.back()}
+            className="flex items-center space-x-2 px-4 py-2 bg-white/80 rounded-full border-2 border-[#2D3648]/30 hover:bg-[#FFD93D]/20 transition-all text-[#2D3648] font-semibold shadow-lg"
+          >
+            <ArrowLeft className="w-5 h-5" />
+            <span>Back</span>
+          </button>
+        </div>
+
         <div className="text-center mb-10">
           <div className="flex justify-center mb-6">
             <div className="relative">

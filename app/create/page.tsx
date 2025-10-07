@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import { useState } from 'react';
 import ProtectedRoute from '@/components/ProtectedRoute';
-import { Rocket, Plus, X, CircleCheck as CheckCircle } from 'lucide-react';
+import { Rocket, Plus, X, CircleCheck as CheckCircle, ArrowLeft } from 'lucide-react';
 
 export default function CreatePage() {
   const router = useRouter();
@@ -58,6 +58,16 @@ export default function CreatePage() {
     <ProtectedRoute>
       <div className="min-h-screen py-12 px-4 bg-gray-50">
       <div className="max-w-3xl mx-auto">
+        <div className="flex items-center mb-8">
+          <button
+            onClick={() => router.back()}
+            className="flex items-center space-x-2 px-4 py-2 bg-white/80 rounded-full border-2 border-[#2D3648]/30 hover:bg-[#FFD93D]/20 transition-all text-[#2D3648] font-semibold shadow-lg"
+          >
+            <ArrowLeft className="w-5 h-5" />
+            <span>Back</span>
+          </button>
+        </div>
+
         <div className="text-center mb-12">
           <div className="flex justify-center mb-6">
             <div className="relative">

@@ -2,9 +2,10 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import ProtectedRoute from '@/components/ProtectedRoute';
-import { Search, Filter, MessageCircle, Save, Users, MapPin, DollarSign, Calendar, User, MessageSquare, Plus, Eye, ArrowRight, X, Trophy, Linkedin, Instagram, Menu, Edit, FilePlus, Rocket, Zap, Clock, Briefcase, Share2 } from 'lucide-react';
+import { Search, Filter, MessageCircle, Save, Users, MapPin, DollarSign, Calendar, User, MessageSquare, Plus, Eye, ArrowRight, X, Trophy, Linkedin, Instagram, Menu, Edit, FilePlus, Rocket, Zap, Clock, Briefcase, Share2, ArrowLeft } from 'lucide-react';
 
 type Hackathon = {
   id: number;
@@ -20,6 +21,7 @@ type Hackathon = {
 };
 
 export default function HomePage() {
+  const router = useRouter();
   const { logout } = useAuth();
   const [selectedHackathon, setSelectedHackathon] = useState<Hackathon | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -266,6 +268,16 @@ export default function HomePage() {
 
       {/* Main Content */}
       <main className="max-w-6xl mx-auto px-4 py-8">
+        <div className="flex items-center mb-8">
+          <button
+            onClick={() => router.back()}
+            className="flex items-center space-x-2 px-4 py-2 bg-white/80 rounded-full border-2 border-[#2D3648]/30 hover:bg-[#FFD93D]/20 transition-all text-[#2D3648] font-semibold shadow-lg"
+          >
+            <ArrowLeft className="w-5 h-5" />
+            <span>Back</span>
+          </button>
+        </div>
+
         {/* User Greeting and Badges Section */}
         <section className="mb-12 text-center">
           <div className="flex items-center justify-start mb-6">
