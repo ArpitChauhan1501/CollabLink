@@ -71,8 +71,6 @@ export default function Home() {
       bio: 'Aspiring AI researcher with experience in building predictive models for social good. Passionate about using tech for sustainable development in India.',
       experience: '2 years',
       availability: 'Available weekends and evenings',
-      github: 'https://github.com/priyasharma',
-      linkedin: 'https://linkedin.com/in/priyasharma',
     },
     {
       id: 2,
@@ -83,8 +81,6 @@ export default function Home() {
       bio: 'Full-stack developer specializing in decentralized applications. Eager to collaborate on innovative Web3 projects for the Indian ecosystem.',
       experience: '3 years',
       availability: 'Full-time available during hackathons',
-      github: 'https://github.com/rajkumar',
-      linkedin: 'https://linkedin.com/in/rajkumar',
     },
   ];
 
@@ -139,7 +135,7 @@ export default function Home() {
         <nav className="flex flex-col space-y-4 p-4">
           <Link href="/" className="px-4 py-2 bg-orange-400 text-white rounded-full text-sm font-semibold hover:bg-orange-500 transition-colors">Home</Link>
           <Link href="/explore" className="px-4 py-2 text-[#2D3648] hover:text-[#FF9A62] font-semibold transition-colors">Explore Teams</Link>
-          <Link href="/create" className="px-4 py-2 text-[#2D3648] hover:text-[#FF9A62] font-semibold transition-colors">Create Project</Link>
+          <Link href="/create" className="px-4 py-2 text-[#2D3648] hover:text-[#FF9A62] font-semibold transition-colors">Create Team</Link>
           <Link href="/my-teams" className="px-4 py-2 text-[#2D3648] hover:text-[#FF9A62] font-semibold transition-colors">My Teams</Link>
           <Link href="/signin" className="px-4 py-2 text-[#2D3648] hover:text-[#FF9A62] font-semibold transition-colors">Sign In</Link>
           <Link href="/login" className="doodle-button bg-white text-[#2D3648] text-sm px-4 py-2">Login</Link>
@@ -170,7 +166,7 @@ export default function Home() {
           <nav className="hidden lg:flex items-center space-x-4">
             <Link href="/" className="px-4 py-2 bg-orange-400 text-white rounded-full text-sm font-semibold hover:bg-orange-500 transition-colors">Home</Link>
             <Link href="/explore" className="px-4 py-2 text-[#2D3648] hover:text-[#FF9A62] font-semibold transition-colors">Explore Teams</Link>
-            <Link href="/create" className="px-4 py-2 text-[#2D3648] hover:text-[#FF9A62] font-semibold transition-colors">Create Project</Link>
+            <Link href="/create" className="px-4 py-2 text-[#2D3648] hover:text-[#FF9A62] font-semibold transition-colors">Create Team</Link>
             <Link href="/my-teams" className="px-4 py-2 text-[#2D3648] hover:text-[#FF9A62] font-semibold transition-colors">My Teams</Link>
           </nav>
           {/* Desktop Auth Links */}
@@ -346,12 +342,12 @@ export default function Home() {
                   ))}
                 </div>
                 <div className="flex space-x-2">
-                  <a href={participant.github} target="_blank" rel="noopener noreferrer" className="p-1 hover:bg-gray-100 rounded-full transition-colors">
+                  <div className="p-1 hover:bg-gray-100 rounded-full transition-colors">
                     <MessageCircle className="w-4 h-4 text-[#FF9A62]" />
-                  </a>
-                  <a href={participant.linkedin} target="_blank" rel="noopener noreferrer" className="p-1 hover:bg-gray-100 rounded-full transition-colors">
+                  </div>
+                  <div className="p-1 hover:bg-gray-100 rounded-full transition-colors">
                     <Users className="w-4 h-4 text-[#2D3648]" />
-                  </a>
+                  </div>
                 </div>
               </div>
             ))}
