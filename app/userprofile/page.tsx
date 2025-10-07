@@ -29,6 +29,29 @@ interface FormDataType {
 
 type WorkedWithType = Record<string, boolean>;
 
+interface ExtendedUser {
+  fullName?: string;
+  username?: string;
+  email?: string;
+  gender?: string;
+  age?: number;
+  location?: string;
+  college?: string;
+  degree?: string;
+  year?: string;
+  primaryRole?: string;
+  experienceLevel?: string;
+  aboutMe?: string;
+  interestedDomains?: string;
+  preferredTeamRole?: string;
+  tagline?: string;
+  lookingToJoin?: boolean;
+  lookingForMembers?: boolean;
+  availability?: string;
+  profilePic?: string;
+  workedWith?: WorkedWithType;
+}
+
 export default function ProfilePage() {
   const router = useRouter();
   const { user } = useAuth();
@@ -104,29 +127,30 @@ export default function ProfilePage() {
 
   useEffect(() => {
     if (user) {
+      const extendedUser = user as ExtendedUser;
       const updatedFormData: FormDataType = {
-        fullName: user.fullName || 'John Doe',
-        username: user.username || 'johndoe',
-        email: user.email || 'john.doe@example.com',
-        gender: user.gender || 'Male',
-        age: user.age?.toString() || '22',
-        location: user.location || 'New York, NY',
-        college: user.college || 'MIT',
-        degree: user.degree || 'Computer Science',
-        year: user.year || '2026',
-        primaryRole: user.primaryRole || 'Full-Stack Developer',
-        experienceLevel: user.experienceLevel || 'Intermediate',
-        aboutMe: user.aboutMe || 'Passionate about building innovative web applications and contributing to open-source projects.',
-        interestedDomains: user.interestedDomains || 'AI, Web Development, Blockchain',
-        preferredTeamRole: user.preferredTeamRole || 'Backend Developer',
-        tagline: user.tagline || 'Full-Stack Developer passionate about AI',
-        lookingToJoin: user.lookingToJoin ?? true,
-        lookingForMembers: user.lookingForMembers ?? false,
-        availability: user.availability || 'Weekends, Evenings',
+        fullName: extendedUser.fullName || 'John Doe',
+        username: extendedUser.username || 'johndoe',
+        email: extendedUser.email || 'john.doe@example.com',
+        gender: extendedUser.gender || 'Male',
+        age: extendedUser.age?.toString() || '22',
+        location: extendedUser.location || 'New York, NY',
+        college: extendedUser.college || 'MIT',
+        degree: extendedUser.degree || 'Computer Science',
+        year: extendedUser.year || '2026',
+        primaryRole: extendedUser.primaryRole || 'Full-Stack Developer',
+        experienceLevel: extendedUser.experienceLevel || 'Intermediate',
+        aboutMe: extendedUser.aboutMe || 'Passionate about building innovative web applications and contributing to open-source projects.',
+        interestedDomains: extendedUser.interestedDomains || 'AI, Web Development, Blockchain',
+        preferredTeamRole: extendedUser.preferredTeamRole || 'Backend Developer',
+        tagline: extendedUser.tagline || 'Full-Stack Developer passionate about AI',
+        lookingToJoin: extendedUser.lookingToJoin ?? true,
+        lookingForMembers: extendedUser.lookingForMembers ?? false,
+        availability: extendedUser.availability || 'Weekends, Evenings',
       };
       setFormData(updatedFormData);
-      setProfilePic(user.profilePic || '/default-pic.png');
-      setWorkedWith(user.workedWith || {
+      setProfilePic(extendedUser.profilePic || '/default-pic.png');
+      setWorkedWith(extendedUser.workedWith || {
         Aarif: true,
         Divyansh: true,
         Arpit: false,
@@ -414,7 +438,7 @@ export default function ProfilePage() {
           <input type="text" name="username" value={editFormData.username} onChange={handleInputChange} placeholder="Username" className="w-full px-5 py-3 rounded-xl border-2 border-[#2D3648]/50 focus:ring-2 focus:ring-[#FFD93D]" />
           <input type="email" name="email" value={editFormData.email} onChange={handleInputChange} placeholder="Email" className="w-full px-5 py-3 rounded-xl border-2 border-[#2D3648]/50 focus:ring-2 focus:ring-[#FFD93D]" />
           <input type="text" name="gender" value={editFormData.gender} onChange={handleInputChange} placeholder="Gender" className="w-full px-5 py-3 rounded-xl border-2 border-[#2D3648]/50 focus:ring-2 focus:ring-[#FFD93D]" />
-          <input type="number" name="age" value={editFormData.age} onChange={handleInputChange} placeholder="Age" className="w-full px-5 py-3 rounded-xl border-2 border-[#2D3648]/50 focus:ring-2 focus:ring-[#FFD93D]" />
+          <input type="text" name="age" value={editFormData.age} onChange={handleInputChange} placeholder="Age" className="w-full px-5 py-3 rounded-xl border-2 border-[#2D3648]/50 focus:ring-2 focus:ring-[#FFD93D]" />
           <input type="text" name="location" value={editFormData.location} onChange={handleInputChange} placeholder="Location" className="w-full px-5 py-3 rounded-xl border-2 border-[#2D3648]/50 focus:ring-2 focus:ring-[#FFD93D]" />
         </div>
 
